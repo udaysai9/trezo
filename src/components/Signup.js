@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
 import Navbar from "../components/Navbar";
-import "./Signup.css"; // Make sure the CSS is imported
+import "./Signup.css";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -11,22 +11,22 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError(""); // Reset previous error messages
+    setError("");
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Signup successful!");
     } catch (error) {
-      setError(error.message); // Set the error message
+      setError(error.message);
     }
   };
 
   return (
     <>
-      <Navbar /> {/* Keep the Navbar component */}
+      <Navbar />
       <div className="login-container">
         <div className="login-box">
-          <h2 style={{ color: '#6e8efb' }}>Signup</h2>
+          <h2>Signup</h2>
           <form onSubmit={handleSignup}>
             <div className="input-group">
               <label>Email</label>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../services/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Import the new CSS file
+import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,7 +16,7 @@ function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); 
+      navigate("/dashboard");
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         setError("Wrong password. Please try again.");
@@ -31,7 +31,7 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2 style={{ color: 'blue' }}>Login</h2>
+        <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label>Email</label>
