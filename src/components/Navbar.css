@@ -2,7 +2,7 @@
 .navbar {
   width: 100%;
   height: 60px;
-  background: rgba(0, 0, 0, 0.85); /* Dark background with slight transparency */
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,12 +10,21 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure it stays on top */
+  z-index: 1000;
+}
+
+/* Left Section */
+.navbar-left .logo {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 /* Navbar List */
 .navbar-list {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -55,7 +64,33 @@
   box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
 }
 
+/* Cart Container */
+.cart-container {
+  position: relative;
+}
+
+/* Cart Icon */
+.cart-icon {
+  font-size: 1.8rem;
+  color: white;
+  text-decoration: none;
+  position: relative;
+}
+
+/* Cart Count Badge */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 3px 7px;
+  border-radius: 50%;
+}
+
 /* Push content down to prevent overlap */
 body {
-  padding-top: 70px; /* Adjust based on navbar height */
+  padding-top: 70px;
 }
