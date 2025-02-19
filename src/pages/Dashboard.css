@@ -1,0 +1,64 @@
+/* Overall layout of the Dashboard */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px; /* Give space for the fixed search bar */
+  }
+  
+  /* Styling for the fixed search bar */
+  .search-bar-container {
+    position: fixed;
+    top: 80px; /* Adjust this value to push the search bar further down */
+    left: 20px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Adjust width as needed */
+  }
+  
+  /* Dashboard content */
+  .dashboard-content {
+    padding: 20px;
+    margin-top: 100px; /* To ensure the content starts below the search bar */
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Style the search bar input (optional) */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    background-color: #f5f5f5;
+    border-color: #6e8efb;
+  }
+  
+  /* Optional: Styling for empty state message */
+  p {
+    font-size: 1.2rem;
+    color: #888;
+    text-align: center;
+  }
+  
+  /* Mobile responsive: Ensure search bar adjusts on small screens */
+  @media (max-width: 768px) {
+    .search-bar-container {
+      width: 200px;
+      left: 10px;
+    }
+  }
+  
