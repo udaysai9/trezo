@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import HomePage from "./pages/HomePage";
@@ -11,6 +12,30 @@ import CartPage from "./components/CartPage";
 import { CartProvider } from "./components/CartContext";
 import { auth } from "./services/firebaseConfig";
 import { signOut } from "firebase/auth";
+
+const pageVariants = {
+  initial: { opacity: 0, x: -30 },
+  animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  exit: { opacity: 0, x: 30, transition: { duration: 0.3 } },
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><HomePage /></motion.div>} />
+        <Route path="/products" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProductList /></motion.div>} />
+        <Route path="/product/:id" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProductPage /></motion.div>} />
+        <Route path="/cart" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><CartPage /></motion.div>} />
+        <Route path="/login" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Login /></motion.div>} />
+        <Route path="/signup" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Signup /></motion.div>} />
+        <Route path="/dashboard" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Dashboard /></motion.div>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,18 +54,8 @@ function App() {
 
   return (
     <CartProvider>
-      <div>
-        <Navbar user={user} handleLogout={handleLogout} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
+      <Navbar user={user} handleLogout={handleLogout} />
+      <AnimatedRoutes />
     </CartProvider>
   );
 }
