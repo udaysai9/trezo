@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../components/CartContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../services/firebaseConfig";
 import { motion } from "framer-motion";
 import { FaShoppingCart } from "react-icons/fa";
 import "./Navbar.css";
 
-function Navbar({ user, handleLogout }) {
+function Navbar({ handleLogout }) {
   const { cart } = useCart();
+  const [user] = useAuthState(auth); // Get the authenticated user
 
   return (
     <motion.nav
@@ -27,9 +30,14 @@ function Navbar({ user, handleLogout }) {
       {/* Navigation List */}
       <ul className="navbar-list">
         {user ? (
-          <motion.li whileHover={{ scale: 1.1 }}>
-            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          </motion.li>
+          <>
+            <motion.li whileHover={{ scale: 1.1 }}>
+              <Link to="/dashboard" className="nav-link">Dashboard</Link>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.1 }}>
+              <Link to="/profile" className="nav-link">Profile</Link>
+            </motion.li>
+          </>
         ) : (
           <>
             <motion.li whileHover={{ scale: 1.1 }}>
@@ -41,31 +49,33 @@ function Navbar({ user, handleLogout }) {
           </>
         )}
 
-        {/* Animated Cart Icon */}
-        <motion.li
-          className="cart-container"
-          whileHover={{ scale: 1.2 }}
-          transition={{ type: "spring", stiffness: 200 }}
-        >
-          <Link to="/cart" className="cart-icon">
-            <FaShoppingCart />
-            {cart.length > 0 && (
-              <motion.span
-                className="cart-count"
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-              >
-                {cart.length}
-              </motion.span>
-            )}
-          </Link>
-        </motion.li>
+        {/* Animated Cart Icon - Only for Logged-in Users */}
+        {user && (
+          <motion.li
+            className="cart-container"
+            whileHover={{ scale: 1.2 }}
+            transition={{ type: "spring", stiffness: 200 }}
+          >
+            <Link to="/cart" className="cart-icon">
+              <FaShoppingCart />
+              {cart.length > 0 && (
+                <motion.span
+                  className="cart-count"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                >
+                  {cart.length}
+                </motion.span>
+              )}
+            </Link>
+          </motion.li>
+        )}
 
-        {/* Animated Logout Button */}
+        {/* Logout Button - Only for Logged-in Users */}
         {user && (
           <motion.li whileHover={{ scale: 1.1 }} className="logout-button">
             <motion.button
-              onClick={handleLogout}
+              onClick={() => auth.signOut()}
               whileHover={{ backgroundColor: "#ff4d4d", scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}

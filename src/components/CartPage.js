@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useCart } from "../components/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { auth } from "../services/firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
 import "./CartPage.css";
 
 const generateRandomCode = () => {
@@ -9,11 +11,29 @@ const generateRandomCode = () => {
 };
 
 const CartPage = () => {
+  const [user] = useAuthState(auth);
   const { cart, updateCartItem, removeFromCart } = useCart();
   const [address, setAddress] = useState("");
   const [encodedAddress, setEncodedAddress] = useState(null);
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
   const navigate = useNavigate();
+
+  if (!user) {
+    return (
+      <div className="cart-page">
+        <h2>Your Cart</h2>
+        <p>You must be logged in to view your cart.</p>
+        <motion.button 
+          onClick={() => navigate("/login")} 
+          className="login-button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Login
+        </motion.button>
+      </div>
+    );
+  }
 
   const handlePurchase = () => {
     if (!address) {
@@ -24,7 +44,6 @@ const CartPage = () => {
     setPurchaseSuccess(true);
   };
 
-  // Calculate total price dynamically
   const totalPrice = cart.reduce((acc, item) => {
     const itemPrice = parseInt(item.price.replace("Rs ", "").replace(",", ""));
     return acc + itemPrice * item.quantity;
@@ -37,7 +56,6 @@ const CartPage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* Left: Cart Items */}
       <motion.div 
         className="cart-left"
         initial={{ x: -50, opacity: 0 }}
@@ -63,7 +81,7 @@ const CartPage = () => {
                   className="cart-item"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 200 }}
-                  onClick={() => navigate(`/product/${item.id}`)} // Navigate to product page
+                  onClick={() => navigate(`/product/${item.id}`)}
                 >
                   <img 
                     src={`/images/${item.imageName}`} 
@@ -76,7 +94,7 @@ const CartPage = () => {
                     <div className="cart-quantity">
                       <motion.button 
                         onClick={(e) => {
-                          e.stopPropagation(); // Prevent navigation on button click
+                          e.stopPropagation();
                           if (item.quantity > 1) {
                             updateCartItem(item, item.quantity - 1);
                           } else {
@@ -90,7 +108,7 @@ const CartPage = () => {
                       <span>{item.quantity}</span>
                       <motion.button 
                         onClick={(e) => {
-                          e.stopPropagation(); // Prevent navigation on button click
+                          e.stopPropagation();
                           updateCartItem(item, item.quantity + 1);
                         }}
                         whileTap={{ scale: 0.9 }}
@@ -102,7 +120,6 @@ const CartPage = () => {
                 </motion.div>
               ))}
             </div>
-            {/* Total Price Below All Items */}
             <motion.div 
               className="total-price"
               initial={{ opacity: 0, y: 10 }}
@@ -115,7 +132,6 @@ const CartPage = () => {
         )}
       </motion.div>
 
-      {/* Right: Purchase Section */}
       <motion.div 
         className="cart-right"
         initial={{ x: 50, opacity: 0 }}

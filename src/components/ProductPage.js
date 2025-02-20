@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../components/CartContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../services/firebaseConfig";
 import "./ProductPage.css";
 
 const allProducts = [
@@ -12,6 +14,7 @@ const allProducts = [
 const ProductPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const [user] = useAuthState(auth); // Get authenticated user
   const product = allProducts.find((item) => item.id === parseInt(id));
   const [showPopup, setShowPopup] = useState(false);
 
@@ -20,6 +23,10 @@ const ProductPage = () => {
   }
 
   const handleAddToCart = () => {
+    if (!user) {
+      alert("Please login to add items to the cart.");
+      return;
+    }
     addToCart(product);
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000); // Hide popup after 2 seconds
@@ -37,7 +44,12 @@ const ProductPage = () => {
         <h2>{product.title}</h2>
         <p className="product-price">{product.price}</p>
         <p className="product-description">{product.description}</p>
-        <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+
+        {user ? (
+          <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+        ) : (
+          <p>Please <a href="/login">login</a> to add items to the cart.</p>
+        )}
       </div>
 
       {/* Popup Notification */}

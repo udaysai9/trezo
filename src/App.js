@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
+import ProfilePage from "./components/ProfilePage"; // Import ProfilePage
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductPage from "./components/ProductPage";
@@ -32,6 +33,7 @@ function AnimatedRoutes() {
         <Route path="/login" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Login /></motion.div>} />
         <Route path="/signup" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Signup /></motion.div>} />
         <Route path="/dashboard" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Dashboard /></motion.div>} />
+        <Route path="/profile" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProfilePage /></motion.div>} />
       </Routes>
     </AnimatePresence>
   );
