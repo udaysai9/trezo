@@ -4,12 +4,12 @@ import { useCart } from "../components/CartContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebaseConfig";
 import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import "./Navbar.css";
 
-function Navbar({ handleLogout }) {
+function Navbar() {
   const { cart } = useCart();
-  const [user] = useAuthState(auth); // Get the authenticated user
+  const [user] = useAuthState(auth);
 
   return (
     <motion.nav
@@ -32,7 +32,9 @@ function Navbar({ handleLogout }) {
         {user ? (
           <>
             <motion.li whileHover={{ scale: 1.1 }}>
-              <Link to="/dashboard" className="nav-link">Dashboard</Link>
+              <Link to="/orders" className="nav-link">
+                <FaBoxOpen className="nav-icon" /> My Orders
+              </Link>
             </motion.li>
             <motion.li whileHover={{ scale: 1.1 }}>
               <Link to="/profile" className="nav-link">Profile</Link>
@@ -49,7 +51,7 @@ function Navbar({ handleLogout }) {
           </>
         )}
 
-        {/* Animated Cart Icon - Only for Logged-in Users */}
+        {/* Cart Icon */}
         {user && (
           <motion.li
             className="cart-container"
@@ -57,7 +59,7 @@ function Navbar({ handleLogout }) {
             transition={{ type: "spring", stiffness: 200 }}
           >
             <Link to="/cart" className="cart-icon">
-              <FaShoppingCart />
+              <FaShoppingCart className="nav-icon" />
               {cart.length > 0 && (
                 <motion.span
                   className="cart-count"
@@ -71,7 +73,7 @@ function Navbar({ handleLogout }) {
           </motion.li>
         )}
 
-        {/* Logout Button - Only for Logged-in Users */}
+        {/* Logout Button */}
         {user && (
           <motion.li whileHover={{ scale: 1.1 }} className="logout-button">
             <motion.button

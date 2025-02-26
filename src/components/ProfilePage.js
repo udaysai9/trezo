@@ -4,7 +4,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaUser, FaPhone, FaMapMarkerAlt, FaSave } from "react-icons/fa";
+import { FaUser, FaPhone, FaMapMarkerAlt, FaEdit, FaSave } from "react-icons/fa";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -16,14 +16,17 @@ const ProfilePage = () => {
     fullName: "",
     phoneNumber: "",
     address: "",
+    // Keeping all other e-commerce-related fields as they were
+    email: "",
+    orders: [],
   });
 
-  const [isNewUser, setIsNewUser] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
-      navigate("/login"); // Redirect if not logged in
+      navigate("/login");
       return;
     }
 
@@ -33,8 +36,6 @@ const ProfilePage = () => {
 
       if (docSnap.exists()) {
         setUserData(docSnap.data());
-      } else {
-        setIsNewUser(true);
       }
       setLoading(false);
     };
@@ -52,11 +53,11 @@ const ProfilePage = () => {
 
     const userRef = doc(db, "users", user.uid);
     await setDoc(userRef, userData);
-    setIsNewUser(false);
+    setIsEditing(false);
   };
 
   if (loading) {
-    return <motion.div className="loading-screen" animate={{ opacity: [0, 1] }}>Loading...</motion.div>;
+    return <motion.div className="loading-screen">Loading...</motion.div>;
   }
 
   return (
@@ -64,10 +65,11 @@ const ProfilePage = () => {
       className="profile-container"
       initial={{ opacity: 0, y: -20 }} 
       animate={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5 }}
     >
       <h2 className="profile-title">User Profile</h2>
-      {isNewUser ? (
+
+      {isEditing ? (
         <motion.form 
           onSubmit={handleSubmit} 
           className="profile-form"
@@ -90,7 +92,7 @@ const ProfilePage = () => {
           <motion.button 
             type="submit" 
             className="save-button"
-            whileHover={{ scale: 1.05, backgroundColor: "#4CAF50" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <FaSave /> Save Profile
@@ -106,6 +108,14 @@ const ProfilePage = () => {
           <p><FaUser /> <strong>Name:</strong> {userData.fullName}</p>
           <p><FaPhone /> <strong>Phone:</strong> {userData.phoneNumber}</p>
           <p><FaMapMarkerAlt /> <strong>Address:</strong> {userData.address}</p>
+          <motion.button 
+            className="edit-button"
+            onClick={() => setIsEditing(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaEdit /> Edit Profile
+          </motion.button>
         </motion.div>
       )}
     </motion.div>

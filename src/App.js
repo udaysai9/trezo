@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from
 import { AnimatePresence, motion } from "framer-motion";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import HomePage from "./pages/HomePage";
-import Dashboard from "./pages/Dashboard";
-import ProfilePage from "./components/ProfilePage"; // Import ProfilePage
+import HomePage from "./components/HomePage";
+import ProfilePage from "./components/ProfilePage";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductPage from "./components/ProductPage";
 import CartPage from "./components/CartPage";
+import OrdersPage from "./components/OrdersPage";
 import { CartProvider } from "./components/CartContext";
 import { auth } from "./services/firebaseConfig";
 import { signOut } from "firebase/auth";
@@ -30,9 +30,9 @@ function AnimatedRoutes() {
         <Route path="/products" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProductList /></motion.div>} />
         <Route path="/product/:id" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProductPage /></motion.div>} />
         <Route path="/cart" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><CartPage /></motion.div>} />
+        <Route path="/orders" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><OrdersPage /></motion.div>} /> {/* ✅ Added */}
         <Route path="/login" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Login /></motion.div>} />
         <Route path="/signup" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Signup /></motion.div>} />
-        <Route path="/dashboard" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><Dashboard /></motion.div>} />
         <Route path="/profile" element={<motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit"><ProfilePage /></motion.div>} />
       </Routes>
     </AnimatePresence>
