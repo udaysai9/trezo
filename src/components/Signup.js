@@ -29,7 +29,7 @@ function Signup() {
           <h2>Signup</h2>
           <form onSubmit={handleSignup}>
             <div className="input-group">
-            <label style="color: black;">Email</label>
+            <label style={{ color: 'black' }}>Email</label>
               <input
                 type="email"
                 value={email}
@@ -38,7 +38,7 @@ function Signup() {
               />
             </div>
             <div className="input-group">
-            <label style="color: black;">Password</label>
+            <label style={{ color: 'black' }}>Password</label>
               <input
                 type="password"
                 value={password}
