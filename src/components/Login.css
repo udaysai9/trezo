@@ -1,24 +1,164 @@
-.forgot-password {
-  color: #007bff;
-  cursor: pointer;
-  margin-top: 10px;
-  text-align: center;
-  font-size: 0.9rem;
-  transition: color 0.3s;
+/* Centering the login container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #d3d3d3; /* Light grey background */
 }
 
-.forgot-password:hover {
-  color: #0056b3;
+/* Login box styling */
+.login-box {
+  background: #444; /* Dark background for contrast */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Login title */
+.login-box h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+/* Input fields styling */
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: white; /* White text */
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #555; /* Dark input background */
+  color: white; /* White text */
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #ddd;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Error and success messages */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .success {
   color: green;
-  font-size: 0.9rem;
-  margin-top: 10px;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.error {
-  color: red;
-  font-size: 0.9rem;
+/* Login button */
+.login-button {
+  width: 100%;
+  background: #777;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: #666;
+  transform: scale(1.05);
+}
+
+/* Forgot password link */
+.forgot-password {
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
   margin-top: 10px;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #ddd;
+}
+
+/* Signup option */
+.signup-option {
+  margin-top: 15px;
+  font-size: 14px;
+  color: white;
+}
+
+.signup-option a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.signup-option a:hover {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 400px) {
+  .login-box {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+.thank-you-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -55%); }
+  20% { opacity: 1; transform: translate(-50%, -50%); }
+  80% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -45%); }
 }

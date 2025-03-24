@@ -202,3 +202,41 @@
   font-size: 1rem;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Payment Method Dropdown */
+.payment-dropdown {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 2px solid #6e8efb;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  appearance: none;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.payment-dropdown:hover {
+  border-color: #5271ff;
+  background: rgba(255, 255, 255, 1);
+}
+
+.payment-dropdown:focus {
+  border-color: #4c63ff;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(82, 113, 255, 0.5);
+}
+
+.payment-dropdown option {
+  font-size: 16px;
+  background: white;
+  color: #333;
+  padding: 10px;
+}

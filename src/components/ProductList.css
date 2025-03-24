@@ -10,14 +10,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center; /* Centers the products */
+  justify-content: center;
 }
 
 .product-card {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: calc(33.33% - 20px); /* Adjust this for side-by-side layout */
+  width: calc(33.33% - 20px);
   padding: 20px;
   text-align: center;
   transition: transform 0.3s ease;
