@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./CategoryPage.css";
@@ -16,7 +16,18 @@ const allProducts = [
 
 const CategoryPage = () => {
   const { category } = useParams();
-  const filteredProducts = allProducts.filter((product) => product.category.toLowerCase() === category.toLowerCase());
+  const filteredProducts = allProducts.filter(
+    (product) => product.category.toLowerCase() === category.toLowerCase()
+  );
+
+  useEffect(() => {
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star) => {
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    });
+  }, []);
 
   return (
     <motion.div 
@@ -26,6 +37,12 @@ const CategoryPage = () => {
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5 }}
     >
+      <div className="stars-container">
+        {[...Array(50)].map((_, i) => (
+          <div key={i} className="star"></div>
+        ))}
+      </div>
+
       <h2 style={{ color: "black" }}>{category} Products</h2>
       <ul className="product-list">
         {filteredProducts.map((product) => (

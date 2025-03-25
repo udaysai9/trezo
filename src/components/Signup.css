@@ -1,124 +1,145 @@
-/* Signup Page Styles */
-body {
-  background-color: #d3d3d3;
-  font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
-.login-container {
+.signup-page {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
 }
 
-.login-box {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+/* Fixed Moving Stars Background */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: moveStars 5s linear infinite;
+}
+
+@keyframes moveStars {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+/* Signup Container */
+.signup-container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 400px;
+  margin-top: 100px;
+}
+
+/* Signup Box */
+.signup-box {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   text-align: center;
-  width: 350px;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-h2 {
   color: white;
-  margin-bottom: 20px;
 }
 
+/* Input Groups */
 .input-group {
-  margin-bottom: 15px;
+  margin: 15px 0;
   text-align: left;
 }
 
 .input-group label {
   display: block;
-  font-size: 14px;
   margin-bottom: 5px;
   color: white;
+  font-weight: 600;
 }
 
 .input-group input {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
   background: rgba(255, 255, 255, 0.2);
   color: white;
+  font-size: 1rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.input-group input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-.login-button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.login-button:hover {
-  background: #0056b3;
-}
-
+/* Error Message */
 .error {
-  color: red;
-  font-size: 14px;
+  color: #ff6b6b;
+  margin: 10px 0;
 }
 
+/* Signup Button */
+.signup-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-button:hover {
+  background: linear-gradient(135deg, #37839c, #ace2eb);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0px 5px 20px rgba(255, 105, 180, 0.5);
+}
+
+/* Signup Link */
 .signup-link {
   margin-top: 15px;
-  color: white;
+  color: #ddd;
 }
 
 .signup-link a {
-  color: white;
+  color: #fff;
   text-decoration: underline;
-  transition: color 0.3s ease-in-out;
 }
 
-.signup-link a:hover {
-  color: #007bff;
-}
-
-/* Smooth fade-in effect */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
+/* Welcome Message */
 .welcome-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #ff9800, #ff5722);
-  color: white;
-  padding: 20px 40px;
-  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 15px;
   text-align: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  animation: fadeInOut 2s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, -55%); }
-  20% { opacity: 1; transform: translate(-50%, -50%); }
-  80% { opacity: 1; transform: translate(-50%, -50%); }
-  100% { opacity: 0; transform: translate(-50%, -45%); }
+  color: white;
+  margin-top: 100px;
 }

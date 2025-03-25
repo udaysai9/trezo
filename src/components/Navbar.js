@@ -18,7 +18,6 @@ function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* Logo */}
       <motion.div
         className="navbar-left"
         whileHover={{ scale: 1.1 }}
@@ -27,7 +26,6 @@ function Navbar() {
         <Link to="/" className="logo">Trezo</Link>
       </motion.div>
 
-      {/* Navigation List */}
       <ul className="navbar-list">
         {user ? (
           <>
@@ -51,7 +49,6 @@ function Navbar() {
           </>
         )}
 
-        {/* Cart Icon */}
         {user && (
           <motion.li
             className="cart-container"
@@ -73,7 +70,6 @@ function Navbar() {
           </motion.li>
         )}
 
-        {/* Logout Button */}
         {user && (
           <motion.li whileHover={{ scale: 1.1 }} className="logout-button">
             <motion.button

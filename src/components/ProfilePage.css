@@ -1,32 +1,82 @@
-/* Container holds main profile and sidebar */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Outer Profile Page with Gradient Background */
+.profile-page {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  /* Fallback color in case gradient fails */
+  background-color: #24243e;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+/* Full Page Moving Stars Background */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Default star style with animation */
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: moveStars 5s linear infinite;
+}
+
+@keyframes moveStars {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+/* Profile Container (Main Profile and Sidebar) */
 .profile-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   max-width: 1100px;
-  margin: 120px auto 40px auto; /* Increased top margin to push content further down below navbar */
+  margin: 120px auto 40px auto;
   padding: 20px;
-  background: #ffffff;
+  background: rgba(0, 0, 0, 0.6);  /* Semi-transparent dark overlay */
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  color: black;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  position: relative;
+  z-index: 1;
 }
 
-/* Main profile content */
+/* Main Profile Content */
 .profile-main {
   flex: 1;
   margin-right: 20px;
 }
 
-/* Profile title */
+/* Profile Title */
 .profile-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: black;
+  color: white;
 }
 
-/* Input groups & fields */
+/* Input Groups & Fields */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -37,7 +87,7 @@
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
-  color: black;
+  color: white;
 }
 
 .input-field {
@@ -46,12 +96,12 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 8px;
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .input-field .input-icon {
   margin-right: 10px;
-  color: black;
+  color: white;
 }
 
 .input-field input {
@@ -60,28 +110,28 @@
   flex: 1;
   background: transparent;
   font-size: 16px;
-  color: black;
+  color: white;
 }
 
-/* Profile details display */
+/* Profile Details Display */
 .profile-details p {
   font-size: 16px;
   margin: 8px 0;
-  color: black;
+  color: white;
 }
 
 .profile-details p strong {
-  color: black;
+  color: white;
 }
 
-/* Buttons - smaller version */
+/* Small Button Styling */
 .small-button {
   padding: 6px 10px;
   font-size: 14px;
   margin-top: 8px;
 }
 
-/* General button styling */
+/* General Button Styling */
 .save-button,
 .edit-button,
 .option-button {
@@ -97,23 +147,15 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
-  color: black;
+  color: white;
 }
 
 .save-button {
   background: #007bff;
-  color: white;
-  width: 150px; /* Reduced width */
-  padding: 6px 8px; /* Smaller padding */
-  font-size: 14px; /* Smaller font */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 150px;
+  padding: 6px 8px;
+  font-size: 14px;
   gap: 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
 .save-button:hover {
@@ -121,23 +163,23 @@
 }
 
 .edit-button {
-  background: #007bff;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
   color: white;
-  width: 150px; /* Reduced width */
-  padding: 6px 8px; /* Smaller padding */
-  font-size: 14px; /* Smaller font */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: 0.3s;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
 }
 
 .edit-button:hover {
-  background: #0056b3;
+  background: linear-gradient(135deg, #37839c, #343ec5);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0px 5px 20px rgba(255, 105, 180, 0.5);
 }
 
 .option-button {
@@ -148,7 +190,7 @@
   background: #545b62;
 }
 
-/* Other options container */
+/* Other Options Container */
 .other-options {
   margin-top: 20px;
   display: flex;
@@ -156,19 +198,20 @@
   gap: 10px;
 }
 
-/* Sidebar styling */
+/* Sidebar Styling */
 .profile-sidebar {
   width: 300px;
-  background: #f2f2f2;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   padding: 20px;
+  color: white;
 }
 
 .sidebar-title {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: black;
+  color: white;
 }
 
 .sidebar-list {
@@ -180,20 +223,20 @@
 .sidebar-item {
   font-size: 16px;
   margin-bottom: 8px;
-  color: black;
+  color: white;
 }
 
 .sidebar-text {
   font-size: 16px;
   margin-bottom: 5px;
-  color: black;
+  color: white;
 }
 
-/* Loading screen */
+/* Loading Screen */
 .loading-screen {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
   margin-top: 50px;
-  color: black;
+  color: white;
 }

@@ -3,7 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBGp2wgf81BINwYym6q5fRNDS_gLIcl0W4",
   authDomain: "trezo0.firebaseapp.com",
@@ -14,10 +13,8 @@ const firebaseConfig = {
   measurementId: "G-KMLLHPJW07"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
 const auth = getAuth(app);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);

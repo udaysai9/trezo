@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useCart } from "../components/CartContext";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import { auth, db } from "../services/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc, serverTimestamp, query, where, orderBy, getDocs, limit } from "firebase/firestore";
 import "./CartPage.css";
 
-const generateRandomCode = () => Math.random().toString(36).substring(2, 10).toUpperCase();
+const generateRandomCode = () =>
+  Math.random().toString(36).substring(2, 10).toUpperCase();
 
 const CartPage = () => {
   const [user] = useAuthState(auth);
@@ -23,12 +24,15 @@ const CartPage = () => {
     if (user) {
       const fetchLastOrders = async () => {
         const ordersRef = collection(db, "orders");
-        const q = query(ordersRef, where("userId", "==", user.uid), orderBy("createdAt", "desc"), limit(5));
+        const q = query(
+          ordersRef,
+          where("userId", "==", user.uid),
+          orderBy("createdAt", "desc"),
+          limit(5)
+        );
         const querySnapshot = await getDocs(q);
-
         const purchasedProducts = {};
         const fiveMinutesAgo = Date.now() - 300000;
-
         querySnapshot.forEach((doc) => {
           const orderData = doc.data();
           if (orderData.createdAt?.seconds * 1000 > fiveMinutesAgo) {
@@ -37,32 +41,34 @@ const CartPage = () => {
             });
           }
         });
-
         setPurchasedItems(purchasedProducts);
       };
-
       fetchLastOrders();
     }
   }, [user]);
 
   const filteredCart = cart.filter((item) => {
-    return !purchasedItems[item.title] || purchasedItems[item.title] + 300000 < Date.now();
+    return (
+      !purchasedItems[item.title] ||
+      purchasedItems[item.title] + 300000 < Date.now()
+    );
   });
 
-  const duplicateItems = cart.filter((item) => purchasedItems[item.title] && purchasedItems[item.title] + 300000 > Date.now());
+  const duplicateItems = cart.filter(
+    (item) =>
+      purchasedItems[item.title] &&
+      purchasedItems[item.title] + 300000 > Date.now()
+  );
 
   const handlePurchase = async () => {
     if (!address || !paymentMethod || filteredCart.length === 0) return;
-
     const deliveryCode = generateRandomCode();
     setEncodedAddress(deliveryCode);
     setPurchaseSuccess(true);
-
     const totalPrice = filteredCart.reduce((acc, item) => {
       const itemPrice = parseInt(item.price.replace("Rs ", "").replace(",", ""));
       return acc + itemPrice * item.quantity;
     }, 0);
-
     const orderData = {
       userId: user.uid,
       items: filteredCart.map((item) => ({
@@ -76,7 +82,6 @@ const CartPage = () => {
       deliveryCode,
       createdAt: serverTimestamp(),
     };
-
     await addDoc(collection(db, "orders"), orderData);
     setPurchasedItems((prev) => ({
       ...prev,
@@ -85,12 +90,20 @@ const CartPage = () => {
         return acc;
       }, {}),
     }));
-
     clearCart();
     setTimeout(() => {
       navigate("/orders");
     }, 3000);
   };
+
+  useEffect(() => {
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star) => {
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDuration = `${Math.random() * 2 + 2}s`;
+    });
+  }, []);
 
   return (
     <motion.div 
@@ -99,6 +112,12 @@ const CartPage = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
+      <div className="stars-container">
+        {[...Array(50)].map((_, i) => (
+          <div key={i} className="star"></div>
+        ))}
+      </div>
+
       <div className="cart-left">
         <motion.h2 
           initial={{ x: -50, opacity: 0 }}
@@ -115,7 +134,7 @@ const CartPage = () => {
           transition={{ delay: 0.3, duration: 0.5 }}
         >
           {cart.length === 0 ? (
-            <p className="empty-cart">Your cart is empty.</p>
+            <p style={{ color: "white" }} className="empty-cart">Your cart is empty.</p>
           ) : (
             cart.map((item, index) => (
               <motion.div 
@@ -132,7 +151,11 @@ const CartPage = () => {
                 <div className="cart-actions">
                   <motion.button 
                     className="cart-btn"
-                    onClick={() => item.quantity > 1 ? updateCartItem(item, item.quantity - 1) : removeFromCart(item)}
+                    onClick={() =>
+                      item.quantity > 1
+                        ? updateCartItem(item, item.quantity - 1)
+                        : removeFromCart(item)
+                    }
                     whileTap={{ scale: 0.9 }}
                   >
                     -
@@ -158,7 +181,15 @@ const CartPage = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
       >
-        <h3>Total: Rs {filteredCart.reduce((acc, item) => acc + parseInt(item.price.replace("Rs ", "").replace(",", "")) * item.quantity, 0).toLocaleString()}</h3>
+        <h3 style={{ color: "white" }}>
+          Total: Rs{" "}
+          {filteredCart.reduce(
+            (acc, item) =>
+              acc +
+              parseInt(item.price.replace("Rs ", "").replace(",", "")) * item.quantity,
+            0
+          ).toLocaleString()}
+        </h3>
 
         {!purchaseSuccess ? (
           cart.length > 0 && (
@@ -168,6 +199,7 @@ const CartPage = () => {
                 placeholder="Enter your shipping address..."
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                style={{ color: "black" }}
                 whileFocus={{ borderColor: "#6e8efb", scale: 1.02 }}
               ></motion.textarea>
 

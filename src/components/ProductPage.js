@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useCart } from "../components/CartContext";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -24,6 +24,21 @@ const ProductPage = () => {
   const product = allProducts.find((item) => item.id === parseInt(id));
   const [showOptions, setShowOptions] = useState(false);
 
+  // Reset scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Initialize moving stars background for the page
+  useEffect(() => {
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star) => {
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    });
+  }, []);
+
   if (!product) {
     return <h2>Product not found</h2>;
   }
@@ -43,55 +58,65 @@ const ProductPage = () => {
     .slice(0, 2); // show two related products
 
   return (
-    <div className="product-page-container">
-      <div className="product-image-container">
-        <img src={`/images/${product.imageName}`} alt={product.title} className="product-page-image" />
+    <div className="product-page">
+      {/* Fixed Moving Stars Background */}
+      <div className="stars-container">
+        {[...Array(50)].map((_, i) => (
+          <div key={i} className="star"></div>
+        ))}
       </div>
-      <div className="product-info">
-        <h2>{product.title}</h2>
-        <p className="product-price">{product.price}</p>
-        <p className="product-description">{product.description}</p>
-        <h3>Features:</h3>
-        <ul className="product-features">
-          {product.features.map((feature, index) => (
-            <li key={index}>{feature}</li>
-          ))}
-        </ul>
-        {user ? (
-          <>
-            <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
-            {showOptions && (
-              <div className="cart-actions">
-                <button onClick={() => navigate("/cart")} className="add-to-cart-btn">Go to Cart</button>
-                <button onClick={() => navigate("/")} className="add-to-cart-btn">Add More Products</button>
-              </div>
-            )}
-          </>
-        ) : (
-          <p>Please <a href="/login">login</a> to add items to the cart.</p>
-        )}
 
-        {/* Additional Content to Fill Blank Space */}
-        <div className="additional-content">
-          <section className="related-products">
-            <h3>Recommended Products</h3>
-            <div className="related-products-list">
-              {relatedProducts.map((relProd) => (
-                <div key={relProd.id} className="related-product-card">
-                  <Link to={`/product/${relProd.id}`} className="related-product-link">
-                    <img src={`/images/${relProd.imageName}`} alt={relProd.title} className="related-product-thumbnail" />
-                    <p>{relProd.title}</p>
-                  </Link>
+      {/* Main Content Container */}
+      <div className="product-page-container">
+        <div className="product-image-container">
+          <img src={`/images/${product.imageName}`} alt={product.title} className="product-page-image" />
+        </div>
+        <div className="product-info">
+          <h2>{product.title}</h2>
+          <p className="product-price">{product.price}</p>
+          <p className="product-description">{product.description}</p>
+          <h3 style={{ color: "white" }}>Features:</h3>
+          <ul className="product-features">
+            {product.features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+          {user ? (
+            <>
+              <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+              {showOptions && (
+                <div className="cart-actions">
+                  <button onClick={() => navigate("/cart")} className="add-to-cart-btn">Go to Cart</button>
+                  <button onClick={() => navigate("/")} className="add-to-cart-btn">Add More Products</button>
                 </div>
-              ))}
-            </div>
-          </section>
-          <section className="customer-reviews">
-            <h3>Customer Reviews</h3>
-            <p className="review-placeholder">"Amazing product! Highly recommend it." - User123</p>
-            <p className="review-placeholder">"Great value for money." - TechGuru</p>
-            <p className="review-placeholder">"Exceeded my expectations." - HappyCustomer</p>
-          </section>
+              )}
+            </>
+          ) : (
+            <p>Please <Link to="/login">login</Link> to add items to the cart.</p>
+          )}
+
+          {/* Additional Content */}
+          <div className="additional-content">
+            <section className="related-products">
+              <h3 style={{ color: "white" }}>Recommended Products</h3>
+              <div className="related-products-list">
+                {relatedProducts.map((relProd) => (
+                  <div key={relProd.id} className="related-product-card">
+                    <Link to={`/product/${relProd.id}`} className="related-product-link">
+                      <img src={`/images/${relProd.imageName}`} alt={relProd.title} className="related-product-thumbnail" />
+                      <p style={{ color: "white" }}>{relProd.title}</p>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="customer-reviews">
+              <h3 style={{ color: "white" }}>Customer Reviews</h3>
+              <p className="review-placeholder">"Amazing product! Highly recommend it." - User123</p>
+              <p className="review-placeholder">"Great value for money." - TechGuru</p>
+              <p className="review-placeholder">"Exceeded my expectations." - HappyCustomer</p>
+            </section>
+          </div>
         </div>
       </div>
     </div>

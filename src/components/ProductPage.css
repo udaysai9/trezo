@@ -1,162 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Background Design for ProductPage */
+.product-page {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+/* Full Page Background Stars */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: moveStars linear infinite;
+}
+
+@keyframes moveStars {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+/* Product Page Container with Transparent Background */
 .product-page-container {
+  position: relative;
+  z-index: 1; /* Above full page background stars */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 80%;
-  margin: 0 auto;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding-top: 20px;
-  gap: 30px;
-}
-
-/* Left Section - Product Info Stays Fixed */
-.product-left {
-  position: sticky;
-  top: 20px;
-  width: 35%;
-  background: #fff;
+  max-width: 1100px;
+  margin: 60px auto 40px auto; /* Adjusted top margin for higher placement */
   padding: 20px;
+  background: transparent; /* Transparent background to show stars */
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
-/* Product Image */
+/* Stars Background for Product Card */
+.card-stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Behind content inside the card */
+  overflow: hidden;
+}
+
+.card-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  box-shadow: 0 0 5px white;
+  animation: moveStars linear infinite;
+}
+
+/* Product Image Section */
 .product-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
+  flex: 1;
+  margin-right: 20px;
+  position: relative;
 }
 
 .product-page-image {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
+  width: 100%;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Product Info */
+/* Product Info Section */
+.product-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
 .product-info h2 {
-  font-size: 1.8rem;
-  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .product-price {
-  font-size: 1.6rem;
-  color: #28a745;
+  font-size: 20px;
   font-weight: bold;
-  margin-top: 5px;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .product-description {
-  font-size: 1.1rem;
-  color: #444;
-  margin: 10px 0;
+  margin-bottom: 15px;
+  color: white;
 }
 
 .product-features {
-  list-style: none;
-  padding: 0;
+  list-style: disc;
+  margin-left: 20px;
   margin-bottom: 15px;
-}
-
-.product-features li {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.product-features li::before {
-  content: '\2713';
-  color: #28a745;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-/* Right Section - Add to Cart & Recommended Products */
-.product-right {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  color: white;
 }
 
 /* Add to Cart Button */
+/* Add to Cart Button */
 .add-to-cart-btn {
-  background-color: #ff9800;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
   color: white;
   border: none;
-  padding: 12px 20px;
-  font-size: 1rem;
+  border-radius: 30px;
   cursor: pointer;
-  border-radius: 5px;
-  width: 100%;
-  transition: background 0.3s ease, transform 0.2s ease;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
 }
 
 .add-to-cart-btn:hover {
-  background-color: #e68900;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #37839c, #343ec5);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0px 5px 20px rgba(255, 105, 180, 0.5);
 }
 
+.add-to-cart-btn:active {
+  transform: scale(0.95);
+  background: linear-gradient(135deg, #37839c, #343ec5);
+  box-shadow: 0px 3px 15px rgba(255, 70, 100, 0.5);
+}
+
+/* Small screens adjustments */
+@media (max-width: 600px) {
+  .add-to-cart-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+
+/* Cart Actions */
 .cart-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
-/* Recommended Products Section */
+/* Additional Content */
+.additional-content {
+  margin-top: 30px;
+}
+
 .related-products {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
 }
 
-.related-products h3 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
-
-/* Recommended Products List */
 .related-products-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: flex-start;
+  gap: 20px;
+}
+
+.related-product-card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.related-product-link {
+  text-decoration: none;
+  color: white;
 }
 
 .related-product-thumbnail {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-/* Button for Recommended Products */
-.related-product-btn {
-  background: linear-gradient(45deg, #ff9800, #ff5722);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border-radius: 5px;
   width: 100%;
-  transition: transform 0.2s ease, background 0.3s ease;
-  font-weight: bold;
+  border-radius: 5px;
 }
 
-.related-product-btn:hover {
-  background: linear-gradient(45deg, #ff5722, #e64a19);
-  transform: scale(1.05);
+.customer-reviews {
+  margin-top: 30px;
 }
 
-.related-product-btn:active {
-  transform: scale(0.95);
+.review-placeholder {
+  font-style: italic;
+  margin-bottom: 10px;
+  color: white;
 }

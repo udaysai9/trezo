@@ -1,63 +1,84 @@
-/* Overall Cart Page */
 .cart-page {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  padding: 40px;
-  background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+  padding: 120px 40px 40px 40px;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   font-family: "Poppins", sans-serif;
   overflow: hidden;
   box-sizing: border-box;
 }
 
-/* Left Side - Cart Items */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: moveStars 5s linear infinite;
+}
+
+@keyframes moveStars {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
 .cart-left {
   width: 65%;
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .cart-left h2 {
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Grid Layout for Cart Items */
 .cart-grid {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: none;
   overflow: hidden;
   padding-right: 0;
 }
 
-/* Cart Item with Glassmorphism Effect */
 .cart-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 25px;
   padding: 15px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.1s ease-in-out, box-shadow 0.15s ease;
 }
 
 .cart-item:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  transition: transform 0.1s ease-in-out, box-shadow 0.15s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Product Image */
 .cart-image {
   width: 70px;
   height: 70px;
@@ -67,7 +88,6 @@
   border: 3px solid #007bff;
 }
 
-/* Cart Details */
 .cart-details {
   flex-grow: 1;
 }
@@ -76,22 +96,20 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
-  color: #222;
+  color: #fff;
 }
 
 .cart-details p {
   font-size: 1rem;
-  color: #666;
+  color: #ddd;
 }
 
-/* Cart Actions */
 .cart-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Quantity Buttons */
 .cart-btn {
   background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
@@ -108,39 +126,37 @@
   transform: scale(1.1);
 }
 
-/* Quantity Display */
 .cart-quantity {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #333;
+  color: #fff;
 }
 
-/* Right Side - Checkout Section */
 .cart-right {
   width: 30%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Total Price */
 .total-price {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #fff;
   padding: 10px;
-  background: #f1f1f1;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Address Input */
 .address-input {
   width: 100%;
   height: 90px;
@@ -159,7 +175,6 @@
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
-/* Purchase Button */
 .purchase-btn {
   background: linear-gradient(135deg, #28a745, #1d9233);
   color: white;
@@ -177,7 +192,6 @@
   transform: scale(1.05);
 }
 
-/* Continue Shopping */
 .continue-shopping {
   display: inline-block;
   margin-top: 20px;
@@ -193,7 +207,6 @@
   transform: scale(1.05);
 }
 
-/* Purchase Success Message */
 .success-message {
   background: #d4edda;
   color: #155724;
@@ -203,7 +216,6 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Payment Method Dropdown */
 .payment-dropdown {
   width: 100%;
   padding: 12px;
